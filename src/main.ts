@@ -13,6 +13,7 @@ async function run(): Promise<void> {
       case 'lithium':
       case 'hydrogen':
       case 'helium':
+      case 'thunder':
         buildRole = productionRole
         break
       default:
