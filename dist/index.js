@@ -52,6 +52,8 @@ function run() {
                 case 'hydrogen':
                 case 'helium':
                 case 'thunder':
+                case 'scrubbed':
+                case 'copy':
                     buildRole = productionRole;
                     break;
                 default:
