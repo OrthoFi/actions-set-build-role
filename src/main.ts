@@ -23,6 +23,11 @@ async function run(): Promise<void> {
         break
     }
     core.setOutput('build-role', buildRole)
+    if (buildRole === productionRole) {
+      core.info('Setting build-role to production role')
+    } else {
+      core.info('Setting build-role to dev role')
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
