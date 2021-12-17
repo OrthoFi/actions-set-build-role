@@ -46,6 +46,7 @@ function run() {
             let buildRole;
             switch (environmentName) {
                 case 'production':
+                case 'production-canary':
                 case 'demo':
                 case 'risk':
                 case 'lithium':
