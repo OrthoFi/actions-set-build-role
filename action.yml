@@ -2,7 +2,7 @@ name: Set Build Role
 description: Sets the required build role which is needed for the provided environment infrastructure
 inputs:
   production-role:
-    description: Production Build Role 
+    description: Production Build Role
     required: true
   dev-role:
     description: Dev Build Role
@@ -13,6 +13,25 @@ inputs:
 outputs:
   build-role:
     description: The build role applicable to the provided environment
+    value: ${{ steps.set-build-role.outputs.build-role }}
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: composite
+  steps:
+    - name: Set Build Role
+      id: set-build-role
+      shell: pwsh
+      run: |
+        $productionEnvironments = @(
+            'production',
+            'production-canary',
+            'demo',
+            'risk',
+            'scrubbed',
+            'copy'
+        )
+        if ($productionEnvironments.Contains('${{ inputs.environment-name }}')) {
+            Write-Output 'build-role=${{ inputs.production-role }}' >> $env:GITHUB_OUTPUT
+        }
+        else {
+            Write-Output 'build-role=${{ inputs.dev-role }}' >> $env:GITHUB_OUTPUT
+        }
